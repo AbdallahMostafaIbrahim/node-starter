@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Posts</title>
+  </head>
+  <body>
+    <h1 id="title">Posts</h1>
+    <div class="posts"></div>
+  </body>
+  <script>
+    const posts = document.querySelector(".posts");
+
+    const main = async () => {
+      const response = await fetch("http://localhost:8000/posts");
+      const data = await response.json();
+      console.log(data.data);
+
+      data.data.forEach((post) => {
+        const postElement = document.createElement("div");
+        postElement.innerHTML = `
+          <h2>${post.title}</h2>
+        `;
+        posts.appendChild(postElement);
+      });
+    };
+
+    main();
+  </script>
+  <style>
+    .posts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #title {
+      color: blue;
+    }
+  </style>
+</html>
